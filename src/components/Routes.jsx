@@ -1,28 +1,22 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { Results } from './Results';
 
-export const Routes = () => (
+const Home = () => <Navigate to="/search" replace />;
+const NotFound = () => <div>404 Not Found</div>;
+
+export const App = () => (
   <div className="p-4">
-    <Switch>
-      <Route exact path="/">
-        <Redirect to="/search" />
-      </Route>
-      <Route exact path="/search">
-        <Results />
-      </Route>
-      <Route path="/images">
-        <Results />
-      </Route>
-      <Route path="/news">
-        <Results />
-      </Route>
-      <Route path="/videos">
-        <Results />
-      </Route>
-
-    </Switch>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Results />} />
+        <Route path="/images" element={<Results />} />
+        <Route path="/news" element={<Results />} />
+        <Route path="/videos" element={<Results />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   </div>
-
 );
